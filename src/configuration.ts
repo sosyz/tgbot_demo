@@ -26,9 +26,9 @@ export class ContainerLifeCycle {
 
   @Config('botConfig')
   config: {
-    token: string,
-    webhookUrl: string, // 替换为您的域名和端口
-  }
+    token: string;
+    webhookUrl: string; // 替换为您的域名和端口
+  };
 
   async onReady() {
     // add middleware
@@ -41,39 +41,40 @@ export class ContainerLifeCycle {
     if (!this.config.webhookUrl) {
       throw new Error('webhookUrl is not set');
     }
-    fetch(
-      `https://api.telegram.org/bot${this.config.token}/setWebhook`,
-      {
-        body: JSON.stringify({
-          url: this.config.webhookUrl,
-        }),
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      }).then(res => res.json()).then(res => {
+    fetch(`https://api.telegram.org/bot${this.config.token}/setWebhook`, {
+      body: JSON.stringify({
+        url: this.config.webhookUrl,
+      }),
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
         console.log(res);
-      }).catch(err => {
+      })
+      .catch(err => {
         console.error(err);
       });
   }
 
   async onStop() {
-    fetch(
-      `https://api.telegram.org/bot${this.config.token}/deleteWebhook`,
-      {
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify({
-          drop_pending_updates: false,
-        }),
-      }
-    ).then(res => res.json()).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.error(err);
-    });
+    fetch(`https://api.telegram.org/bot${this.config.token}/deleteWebhook`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        drop_pending_updates: false,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 }

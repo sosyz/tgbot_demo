@@ -13,17 +13,17 @@ export default {
   transaction: {
     type: 'cyxy',
     claude: {
-      sessionKey: process.env.claudeSessionKey
+      sessionKey: process.env.claudeSessionKey,
     },
     gpt: {
-      key: process.env.gptKey
+      key: process.env.gptKey,
     },
     volcengine: {
       ak: process.env.volcengineAk,
-      sk: process.env.volcengineSk
+      sk: process.env.volcengineSk,
     },
     cyxy: {
-      key: process.env.cyxyKey
-    }
-  }
+      key: process.env.cyxyKey,
+    },
+  },
 } as MidwayConfig;
